@@ -51,15 +51,20 @@ class CustomersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $data = request()->validate([
+
+     private function validateRequest()
+     {
+        return request()->validate([
             'name' => 'required|min:3',
             'email' => 'required|min:10|email',
             'active' => 'required',
             'company_id' => 'required'
         ]);
-        Customer::create($data);
+     }
+
+    public function store(Request $request)
+    {
+        Customer::create($this->validateRequest());
         
         return redirect('customers');
 
@@ -110,13 +115,14 @@ class CustomersController extends Controller
      */
     public function update(Customer $customer)
     {
-        $data = request()->validate([
+       /*  $data = request()->validate([
             'name' => 'required|min:3',
             'email' => 'required|min:10|email',
             'active' => 'required',
             'company_id' => 'required'
-        ]);
-        $customer->update($data);
+        ]); */
+        $customer->update($this->validateRequest());
+        
         return redirect('customers/' . $customer->id);
     }
 
