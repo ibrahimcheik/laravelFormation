@@ -10,13 +10,17 @@ class Customer extends Model
     //protected $fillable = ['name','email','active'];
     //garded exemple : nothing is guarded : specifie the attribute to not store
     protected $guarded = [];
+    protected $attribute = [
+        'Active' => 1
+    ];
     //create specifique query to use in controller by is name
 
     public function getActiveAttribute($attribute)
     {
         return [
             '1' => 'Active',
-            '0' => 'Inactive'
+            '0' => 'Inactive',
+            '2' => 'OnProgress'
         ][$attribute];
     }
 

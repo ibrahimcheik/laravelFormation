@@ -12,8 +12,9 @@
     <label for="status">Status :</label>
     <select name="active" id="active" class="form-control">
         <option value="" disabled>select status</option>
-        <option value="1">active</option>
-        <option value="0">inactive</option>
+        <option value="1" {{ $customer->active == 'Active' ? 'selected' : '' }}>Active</option>
+        <option value="0" {{ $customer->active == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+        <option value="2" {{ $customer->active == 'OnProgress' ? 'selected' : '' }}>OnProgress</option>
     </select>
     <div>{{ $errors->first('status') }}</div>
 </div>
@@ -22,7 +23,7 @@
     <select name="company_id" id="company_id" class="form-control">
            @foreach($companies as $company)
            {
-            <option value="{{ $company->id }}">{{ $company->name }}</option>
+            <option value="{{ $company->id }}" {{ $company->id == $customer->company_id ? 'selected' : '' }}>{{ $company->name }}</option>
            }
            @endforeach
     </select>
