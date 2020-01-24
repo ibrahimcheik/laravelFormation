@@ -65,7 +65,7 @@ class CustomersController extends Controller
     public function store(Request $request)
     {
         Customer::create($this->validateRequest());
-        
+
         return redirect('customers');
 
          /*$customer = new Customer();
@@ -115,14 +115,14 @@ class CustomersController extends Controller
      */
     public function update(Customer $customer)
     {
-       /*  $data = request()->validate([
+         $data = request()->validate([
             'name' => 'required|min:3',
             'email' => 'required|min:10|email',
             'active' => 'required',
             'company_id' => 'required'
-        ]); */
-        $customer->update($this->validateRequest());
-        
+        ]);
+        $customer->update($data);
+
         return redirect('customers/' . $customer->id);
     }
 

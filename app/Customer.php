@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    //fillable exemple :specifie all attribute to be mass assignment explicite way 
+    //fillable exemple :specifie all attribute to be mass assignment explicite way
     //protected $fillable = ['name','email','active'];
     //garded exemple : nothing is guarded : specifie the attribute to not store
     protected $guarded = [];
@@ -17,11 +17,15 @@ class Customer extends Model
 
     public function getActiveAttribute($attribute)
     {
-        return [
+        $data= [
             '1' => 'Active',
             '0' => 'Inactive',
             '2' => 'OnProgress'
-        ][$attribute];
+        ];
+        if(!$attribute || !isset($data[$attribute]))
+            return null;
+
+       return $data[$attribute];
     }
 
     public function scopeActive($query)
