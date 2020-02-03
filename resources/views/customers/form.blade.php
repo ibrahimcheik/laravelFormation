@@ -12,20 +12,25 @@
     <label for="status">Status :</label>
     <select name="active" id="active" class="form-control">
         <option value="" disabled>select status</option>
+        <!--
         <option value="1" {{ $customer->active == 'Active' ? 'selected' : '' }}>Active</option>
         <option value="0" {{ $customer->active == 'Inactive' ? 'selected' : '' }}>Inactive</option>
-        <option value="2" {{ $customer->active == 'OnProgress' ? 'selected' : '' }}>OnProgress</option>
+        <option value="2" {{ $customer->active == 'OnProgress' ? 'selected' : '' }}>OnProgress</option> -->
+
+        @foreach($customer->$activeOptions() as $activeOptionKey => $activeOptionValue)
+          <option value="{{ $activeOptionKey}}" {{ $customer->active == $activeOptionValue ?? 'selected' : ''}}> {{ $activeOptionValue}} </option>
+        @endforeach
     </select>
     <div>{{ $errors->first('status') }}</div>
 </div>
 <div class="form-group">
     <label for="company_id">Company :</label>
     <select name="company_id" id="company_id" class="form-control">
-           @foreach($companies as $company)
-           {
-            <option value="{{ $company->id }}" {{ $company->id == $customer->company_id ? 'selected' : '' }}>{{ $company->name }}</option>
-           }
-           @endforeach
+        @foreach($companies as $company)
+        {
+        <option value="{{ $company->id }}" {{ $company->id == $customer->company_id ?? 'selected' : '' }}> {{ $company->name }} </option>
+        }
+        @endforeach
     </select>
 </div>
 @csrf

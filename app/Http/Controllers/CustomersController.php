@@ -21,16 +21,16 @@ class CustomersController extends Controller
         $inactiveCustomers = Customer::inactive()->get();
         $customers = Customer::all();
         $companies = Company::all();
-        return view('customers.index', compact('activeCustomers','inactiveCustomers','companies','customers'));
+        return view('customers.index', compact('activeCustomers', 'inactiveCustomers', 'companies', 'customers'));
 
         //$activeCustomers = Customer::where('active', 1)->get();
         //$inactiveCustomers = Customer::where('active', 0)->get();
         //$customers = Customer::all();
         //dd($customers);
         /* return view('internals.customers',[
-            'activeCustomers' => $activeCustomers,
-            'inactiveCustomers' => $inactiveCustomers,
-        ]); */
+                'activeCustomers' => $activeCustomers,
+                'inactiveCustomers' => $inactiveCustomers,
+*/
     }
 
     /**
@@ -41,8 +41,8 @@ class CustomersController extends Controller
     public function create()
     {
         $companies = Company::all();
-        $customer  = new Customer();
-        return view('customers.create', compact('companies','customer'));
+        $customer = new Customer();
+        return view('customers.create', compact('companies', 'customer'));
     }
 
     /**
@@ -52,15 +52,15 @@ class CustomersController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     private function validateRequest()
-     {
+    private function validateRequest()
+    {
         return request()->validate([
             'name' => 'required|min:3',
             'email' => 'required|min:10|email',
             'active' => 'required',
-            'company_id' => 'required'
+            'company_id' => 'required',
         ]);
-     }
+    }
 
     public function store(Request $request)
     {
@@ -68,11 +68,11 @@ class CustomersController extends Controller
 
         return redirect('customers');
 
-         /*$customer = new Customer();
-        $customer->name = request('name');
-        $customer->email = request('email');
-        $customer->active = request('active');
-        $customer->save();*/
+        /*$customer = new Customer();
+                    $customer->name = request('name');
+                    $customer->email = request('email');
+                    $customer->active = request('active');
+        */
         //dd(request('name'));
     }
 
@@ -82,12 +82,14 @@ class CustomersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     /*public function show($id)
-    {
-        //$customer = Customer::find($id);
-        $customer = Customer::where('id', $id)->firstOrFail();
-        return view('customers.show', compact('customer'));
-    }*/
+            {
+                //$customer = Customer::find($id);
+                $customer = Customer::where('id', $id)->firstOrFail();
+                return view('customers.show', compact('customer'));
+    */
+
     //Route Model Binding
     public function show(Customer $customer)
     {
@@ -103,7 +105,7 @@ class CustomersController extends Controller
     public function edit(Customer $customer)
     {
         $companies = Company::all();
-        return view('customers.edit', compact('customer','companies'));
+        return view('customers.edit', compact('customer', 'companies'));
     }
 
     /**
@@ -115,11 +117,11 @@ class CustomersController extends Controller
      */
     public function update(Customer $customer)
     {
-         $data = request()->validate([
+        $data = request()->validate([
             'name' => 'required|min:3',
             'email' => 'required|min:10|email',
             'active' => 'required',
-            'company_id' => 'required'
+            'company_id' => 'required',
         ]);
         $customer->update($data);
 
@@ -128,7 +130,6 @@ class CustomersController extends Controller
 
     public function update1(Request $request, $id)
     {
-
     }
 
     /**

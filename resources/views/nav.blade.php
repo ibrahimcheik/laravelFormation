@@ -11,5 +11,4 @@
     <li class="nav-item">
       <a class="nav-link" href="/customers">Customers-List</a>
     </li>
-    
-  </ul>
+</ul>
